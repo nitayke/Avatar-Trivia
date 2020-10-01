@@ -1,4 +1,4 @@
-package com.trivia;
+package com.example.avatar_trivia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,13 +23,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.trivia.R;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     public static final String PREFS_NAME = "MyPrefsFile";
     private static final String PREF_USERNAME = "username";
     private static final String PREF_PASSWORD = "password";
-    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/users");
     private CheckBox checkBox;
     private ProgressBar progressBar;
     private TextView msg;
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (username != null && password != null) {
             MainActivity.username = username;
-            ref.child("users").child(MainActivity.username).addListenerForSingleValueEvent(new ValueEventListener() {
+            ref.child(MainActivity.username).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String txt = dataSnapshot.getKey() + ": " + dataSnapshot.getValue();
@@ -75,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 MainActivity.username = usernameET.getText().toString();
-                ref.child("users").child(MainActivity.username).addListenerForSingleValueEvent(new ValueEventListener() {
+                ref.child(MainActivity.username).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         MainActivity.email = dataSnapshot.getValue(String.class);
