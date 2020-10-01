@@ -1,4 +1,4 @@
-package com.example.avatar_trivia;
+package com.trivia;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.avatar_trivia", appContext.getPackageName());
+        assertEquals("com.trivia", appContext.getPackageName());
     }
 }

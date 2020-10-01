@@ -1,4 +1,4 @@
-package com.example.avatar_trivia;
+package com.trivia;
 
 public class Score implements Comparable<Score>{
     public String score;

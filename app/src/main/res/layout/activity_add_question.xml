@@ -138,7 +138,7 @@
         android:id="@+id/addQuestionBtn"
         android:textSize="27dp"
         android:layout_width="wrap_content"
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="#FF424242"
         android:layout_height="wrap_content"
         android:width="250dp"
         android:fontFamily="@font/rubik"

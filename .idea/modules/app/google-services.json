@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "159986868602",
-    "firebase_url": "https://trivia-13135.firebaseio.com",
-    "project_id": "trivia-13135",
-    "storage_bucket": "trivia-13135.appspot.com"
+    "project_number": "262015869163",
+    "firebase_url": "https://try-trivia.firebaseio.com",
+    "project_id": "try-trivia",
+    "storage_bucket": "try-trivia.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:159986868602:android:8d9d110520738ce700b6c3",
+        "mobilesdk_app_id": "1:262015869163:android:6dd3c44d545c46369c5eae",
         "android_client_info": {
-          "package_name": "com.example.avatar_trivia"
+          "package_name": "com.trivia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "159986868602-ohno00r6i7nqp37a4kj5aq94iv22nqqt.apps.googleusercontent.com",
+          "client_id": "262015869163-8mke4hp4322o3nod2nvp1mle30v4hdus.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.avatar_trivia",
+            "package_name": "com.trivia",
             "certificate_hash": "3ae0cde6b6530505eb854df7ba70acfbbdb70c3d"
           }
         },
         {
-          "client_id": "159986868602-pq4t5vdp0i0107d3m0nr4n5tpifs9ebg.apps.googleusercontent.com",
+          "client_id": "262015869163-2gt1tc8t71esvjhof9o28ckrkhd6l7hg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBqWZh_oPLzkGmgItDf43kRCZpXzssY-Po"
+          "current_key": "AIzaSyDsVqgXKrNAIkcyFnOV91i6ecg9g3rrIf0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "159986868602-pq4t5vdp0i0107d3m0nr4n5tpifs9ebg.apps.googleusercontent.com",
+              "client_id": "262015869163-2gt1tc8t71esvjhof9o28ckrkhd6l7hg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.example.avatar_trivia;
+package com.trivia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         msg = findViewById(R.id.loginMsg);
         usernameET = findViewById(R.id.loginUsername);
         passwordET = findViewById(R.id.loginPassword);
-
         mAuth = FirebaseAuth.getInstance();
         SharedPreferences pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         String username = pref.getString(PREF_USERNAME, null);

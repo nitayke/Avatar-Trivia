@@ -106,7 +106,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="#FF424242"
             android:textSize="27dp"
             android:textStyle="bold" />
 
@@ -118,7 +118,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="#FF424242"
             android:textSize="27dp"
             android:textStyle="bold" />
 
@@ -130,7 +130,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="#FF424242"
             android:textSize="27dp"
             android:textStyle="bold" />
 
@@ -141,7 +141,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="#FF424242"
             android:textSize="27dp"
             android:textStyle="bold" />
     </LinearLayout>
