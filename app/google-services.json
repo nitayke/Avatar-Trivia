@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "262015869163-8mke4hp4322o3nod2nvp1mle30v4hdus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trivia",
+            "certificate_hash": "3ae0cde6b6530505eb854df7ba70acfbbdb70c3d"
+          }
+        },
+        {
           "client_id": "262015869163-2gt1tc8t71esvjhof9o28ckrkhd6l7hg.apps.googleusercontent.com",
           "client_type": 3
         }
