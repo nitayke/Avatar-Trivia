@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -59,9 +60,7 @@ public class GameActivity extends AppCompatActivity {
         {
             game();
         }
-        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra("SCORE", score);
-        startActivity(intent);
+        endGame();
     }
 
     void game() {
@@ -95,9 +94,7 @@ public class GameActivity extends AppCompatActivity {
         timer.start();
         progressBar.setVisibility(View.VISIBLE);
         if (not_used_questions.isEmpty()) {
-            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-            intent.putExtra("SCORE", score);
-            startActivity(intent);
+            endGame();
         }
         int index = not_used_questions.get(rand.nextInt(not_used_questions.size() - 1) + 1);
         not_used_questions.remove((Integer) index);
@@ -136,5 +133,14 @@ public class GameActivity extends AppCompatActivity {
         }
         if (!timeUp[0])
             timer.cancel();
+    }
+
+    void endGame()
+    {
+        ((ViewGroup)findViewById(R.id.gameLayout)).removeAllViews();
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("SCORE", score);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
