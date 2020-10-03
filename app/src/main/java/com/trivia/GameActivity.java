@@ -3,6 +3,8 @@ package com.trivia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.UiAutomation;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,11 +28,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static com.trivia.MainActivity.ref;
+
 public class GameActivity extends AppCompatActivity {
     private int life = 3;
     private int score = 0;
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("questions");
-    private ArrayList<Integer> used_questions = new ArrayList<>();
+    private ArrayList<Integer> not_used_questions = new ArrayList<>();
     private List<String> numbers = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +43,28 @@ public class GameActivity extends AppCompatActivity {
         {
             numbers.add(String.valueOf(i));
         }
+        ref.child("questions").child("number").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int size = snapshot.getValue(Integer.class);
+                for (int i = 1; i <= size; i++)
+                {
+                    not_used_questions.add(i);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
         while (life > 0)
         {
-            try {
-                game();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            game();
         }
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra("SCORE", score);
+        startActivity(intent);
     }
 
-    void game() throws InterruptedException {
+    void game() {
         final boolean[] timeUp = {false};
         TextView scoreTxt = findViewById(R.id.gameScore);
         TextView question = findViewById(R.id.gameQuestion);
@@ -58,7 +72,6 @@ public class GameActivity extends AppCompatActivity {
         final Button[] buttons = {findViewById(R.id.gameBtn1), findViewById(R.id.gameBtn2), findViewById(R.id.gameBtn3), findViewById(R.id.gameBtn4)};
         ProgressBar progressBar = findViewById(R.id.gameProgressBar);
         final TextView timerTxt = findViewById(R.id.gameTimerTxt);
-        final Integer[] questionsNumber = new Integer[1];
         final Map<String, Object> questionMap = new HashMap<>();
         Random rand = new Random();
         final int correctAnswer;
@@ -66,8 +79,8 @@ public class GameActivity extends AppCompatActivity {
 
         for (Button i : buttons)
             i.setBackgroundColor(Color.parseColor("@android:color/holo_blue_light"));
-        lifes.setText("יש לך עוד " + life + " חיים");
-        scoreTxt.setText("הניקוד שלך הוא " + score);
+        lifes.setText(getString(R.string.lifes, life));
+        scoreTxt.setText(getString(R.string.score, score));
         CountDownTimer timer = new CountDownTimer(10000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -81,24 +94,16 @@ public class GameActivity extends AppCompatActivity {
         };
         timer.start();
         progressBar.setVisibility(View.VISIBLE);
-        ref.child("number").addListenerForSingleValueEvent(new ValueEventListener() {
+        if (not_used_questions.isEmpty()) {
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            intent.putExtra("SCORE", score);
+            startActivity(intent);
+        }
+        int index = not_used_questions.get(rand.nextInt(not_used_questions.size() - 1) + 1);
+        not_used_questions.remove((Integer) index);
+        ref.child("questions").child(String.valueOf(index)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                questionsNumber[0] = dataSnapshot.getValue(Integer.class);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-        int index = rand.nextInt(questionsNumber[0] - 1) + 1;
-        while (used_questions.contains(index))
-            index = rand.nextInt(questionsNumber[0] - 1) + 1;
-        if (used_questions.contains(index))
-            // end game
-        used_questions.add(index);
-        ref.child(String.valueOf(index)).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     questionMap.put(ds.getKey(), ds.getValue());
                 }
@@ -125,9 +130,7 @@ public class GameActivity extends AppCompatActivity {
                         life--;
                     }
                     else
-                    {
-                        score += ((1/milliseconds[0]) * 1000000);
-                    }
+                        score += (milliseconds[0]/100);
                 }
             });
         }

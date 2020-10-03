@@ -16,12 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
+import static com.trivia.MainActivity.ref;
 
 public class Top10Activity extends AppCompatActivity {
     @Override
@@ -29,22 +27,21 @@ public class Top10Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top10);
         ListView listView = findViewById(R.id.top10List);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("scores");
-        final ArrayList<DataSnapshot>[] scores = new ArrayList[]{new ArrayList<>()};
-        ArrayList<Score> scores1 = new ArrayList<>();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        final ArrayList<Score> scores = new ArrayList<>();
+        ref.child("scores").orderByChild("score").limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                scores[0] = (ArrayList<DataSnapshot>) dataSnapshot.getChildren();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot i : snapshot.getChildren())
+                {
+                    scores.add(new Score(i.child("user").getValue(String.class),
+                            i.child("score").getValue(String.class), i.child("date").getValue(String.class)));
+                }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-        for (DataSnapshot i : scores[0]) {
-            scores1.add(new Score(i.child("user").getValue(String.class), i.child("score").getValue(String.class)));
-        }
-        Collections.sort(scores1);
-        ArrayAdapter<Score> adapter = new ArrayAdapter<>(this, R.layout.activity_listview, scores1);
+        Collections.sort(scores);
+        ArrayAdapter<Score> adapter = new ArrayAdapter<>(this, R.layout.activity_listview, scores);
         listView.setAdapter(adapter);
     }
 }

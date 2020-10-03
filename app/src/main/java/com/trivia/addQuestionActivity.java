@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.trivia.MainActivity.ref;
 
 public class addQuestionActivity extends AppCompatActivity {
 
@@ -28,7 +28,6 @@ public class addQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
 
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("questions");
         final EditText question = findViewById(R.id.addQuestionQuestion);
         final EditText correct = findViewById(R.id.addQuestionCorrect);
         final EditText false1 = findViewById(R.id.addQuestionFalse1);
@@ -50,7 +49,7 @@ public class addQuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                ref.child("number").addListenerForSingleValueEvent(new ValueEventListener() {
+                ref.child("questions").child("number").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         number[0] = dataSnapshot.getValue(String.class);
