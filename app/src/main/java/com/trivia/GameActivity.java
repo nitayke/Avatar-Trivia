@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -47,16 +47,12 @@ public class GameActivity extends AppCompatActivity {
                 {
                     not_used_questions.add(i);
                 }
-                while (life > 0)
-                {
+                // TODO: fix the threading in the game
+                //while (life > 0)
+                //{
                     game();
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                endGame();
+                //}
+                //endGame();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
@@ -76,13 +72,17 @@ public class GameActivity extends AppCompatActivity {
         final int[] correctAnswer = new int[1];
         final long[] milliseconds = new long[1];
 
-        for (Button i : buttons)
-            i.setBackgroundColor(Color.parseColor("#ff33b5e5"));
+        progressBar.bringToFront();
+
+        for (Button i : buttons) {
+            i.setBackground (getResources().getDrawable(getResources().getIdentifier("@drawable/button", null, getPackageName())));
+        }
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
         final CountDownTimer timer = new CountDownTimer(10000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
+                // TODO: fix the timer view
                 timerTxt.setText(new DecimalFormat("##.#").format(millisUntilFinished/1000));
                 milliseconds[0] = millisUntilFinished;
             }
@@ -92,6 +92,7 @@ public class GameActivity extends AppCompatActivity {
             }
         };
         timer.start();
+        // TODO: make it invisible after end of loading
         progressBar.setVisibility(View.VISIBLE);
         if (not_used_questions.isEmpty()) {
             endGame();
@@ -116,15 +117,17 @@ public class GameActivity extends AppCompatActivity {
                     buttons[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            buttons[correctAnswer[0]].setBackgroundColor(Color.parseColor("#00FF00"));
+                            //buttons[correctAnswer[0]].setBackgroundColor(Color.parseColor("#00FF00"));
+                            buttons[correctAnswer[0]].getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
                             if (finalI != correctAnswer[0])
                             {
-                                buttons[finalI].setBackgroundColor(Color.parseColor("#FF0000"));
+                                // TODO: fix red color
+                                //buttons[finalI].setBackgroundColor(Color.parseColor("#FF0000"));
+                                buttons[finalI].getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
                                 life--;
                             }
                             else
                                 score += (milliseconds[0]/100);
-                            notify();
                         }
                     });
                 }
