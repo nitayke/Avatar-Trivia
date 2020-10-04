@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         addQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), addQuestionActivity.class));
+                startActivity(new Intent(getApplicationContext(), AddQuestionActivity.class));
             }
         });
     }

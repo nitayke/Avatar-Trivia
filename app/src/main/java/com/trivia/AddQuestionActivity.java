@@ -21,7 +21,7 @@ import java.util.Map;
 
 import static com.trivia.MainActivity.ref;
 
-public class addQuestionActivity extends AppCompatActivity {
+public class AddQuestionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -107,9 +107,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="#FF424242"
-            android:textSize="27dp"
-            android:textStyle="bold" />
+            android:textSize="27dp"/>
 
         <Button
             android:id="@+id/gameBtn2"
@@ -119,9 +117,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="#FF424242"
-            android:textSize="27dp"
-            android:textStyle="bold" />
+            android:textSize="27dp"/>
 
         <Button
             android:id="@+id/gameBtn3"
@@ -131,9 +127,7 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="#FF424242"
-            android:textSize="27dp"
-            android:textStyle="bold" />
+            android:textSize="27dp"/>
 
         <Button
             android:id="@+id/gameBtn4"
@@ -142,8 +136,6 @@
             android:width="250dp"
             android:background="@drawable/button"
             android:fontFamily="@font/rubik"
-            android:textColor="#FF424242"
-            android:textSize="27dp"
-            android:textStyle="bold" />
+            android:textSize="27dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

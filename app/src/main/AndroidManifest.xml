@@ -15,7 +15,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ResultActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".addQuestionActivity" />
+        <activity android:name=".AddQuestionActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
