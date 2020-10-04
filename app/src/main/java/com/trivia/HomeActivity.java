@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static com.trivia.MainActivity.PREFS_NAME;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override
@@ -14,9 +16,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final Button startGameButton = findViewById(R.id.homeStartGame);
+        Button startGameButton = findViewById(R.id.homeStartGame);
         Button top10Button = findViewById(R.id.homeTop10);
-        final Button addQuestionButton = findViewById(R.id.homeAddQuestion);
+        Button addQuestionButton = findViewById(R.id.homeAddQuestion);
+        Button logoutButton = findViewById(R.id.homeLogout);
 
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +39,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddQuestionActivity.class));
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
+                finish();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }
