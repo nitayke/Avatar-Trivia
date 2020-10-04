@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="end"
+
+<TextView
+    android:id="@+id/listResultScore"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="נתאי"
+    android:fontFamily="@font/rubik"
+    android:textColor="#FFFFFF"
     android:padding="20dp"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <TextView
-        android:id="@+id/resultScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150sp"
-        android:fontFamily="@font/rubik"
-        android:shadowColor="#000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="3"
-        android:textAlignment="center"
-        android:text="נתאי"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal" />
-
-</LinearLayout>
+    android:shadowRadius="3"
+    android:shadowDx="2"
+    android:shadowDy="2"
+    android:shadowColor="#000000"
+    android:textSize="30sp"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

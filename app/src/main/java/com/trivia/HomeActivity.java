@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         top10Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Top10Activity.class));
+                startActivity(new Intent(getApplicationContext(), BestScoresActivity.class));
             }
         });
 

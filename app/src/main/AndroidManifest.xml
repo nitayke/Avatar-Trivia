@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResultActivity"/>
+        <activity
+            android:name=".BestScoresActivity"
+            android:label="@string/title_activity_best_scores"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ResultActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".Top10Activity" />
         <activity android:name=".addQuestionActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".SignupActivity" />
@@ -19,6 +22,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

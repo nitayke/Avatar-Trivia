@@ -1,19 +1,24 @@
 package com.trivia;
 
-public class Score {
+public class Score implements Comparable<Score>{
     public String score;
     public String user;
-    public String date;
+    public String week;
 
-    public Score(String _user, String _score, String _date)
+    public Score(String _user, String _score, String _week)
     {
         this.user = _user;
         this.score = _score;
-        this.date = _date;
+        this.week = _week;
     }
 
     @Override
     public String toString() {
         return user + " - " + score;
+    }
+
+    @Override
+    public int compareTo(Score o) {
+        return o.score.compareTo(this.score);
     }
 }

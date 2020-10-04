@@ -43,21 +43,25 @@ public class AllTimeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView listView = getView().findViewById(R.id.allTimeListView);
+        final ListView listView = getView().findViewById(R.id.allTimeListView);
         final ArrayList<Score> scores = new ArrayList<>();
-        ref.child("scores").orderByChild("score").limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("scores").orderByChild("score").limitToLast(10).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot i : snapshot.getChildren())
                 {
                     scores.add(new Score(i.child("user").getValue(String.class),
-                            i.child("score").getValue(String.class), i.child("date").getValue(String.class)));
+                            String.valueOf(i.child("score").getValue(Integer.class)),
+                            i.child("week").getValue(String.class)));
                 }
+                Collections.reverse(scores);
+                ArrayAdapter<Score> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
+                        R.layout.list_textview, scores);
+                listView.setAdapter(adapter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-        ArrayAdapter<Score> adapter = new ScoreAdapter(getActivity().getApplicationContext(), scores);
-        listView.setAdapter(adapter);
+
     }
 }
