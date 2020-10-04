@@ -26,13 +26,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.trivia.MainActivity.PREFS_NAME;
+import static com.trivia.MainActivity.PREF_EMAIL;
+import static com.trivia.MainActivity.PREF_USERNAME;
 import static com.trivia.MainActivity.ref;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    public static final String PREFS_NAME = "MyPrefsFile";
-    private static final String PREF_USERNAME = "username";
-    private static final String PREF_PASSWORD = "password";
     private CheckBox checkBox;
     private ProgressBar progressBar;
     private TextView msg;
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                 getSharedPreferences(PREFS_NAME,MODE_PRIVATE)
                                         .edit()
                                         .putString(PREF_USERNAME, MainActivity.username)
-                                        .putString(PREF_PASSWORD, passwordET.getText().toString())
+                                        .putString(PREF_EMAIL, MainActivity.email)
                                         .apply();
                             }
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));

@@ -21,6 +21,7 @@
         android:selectAllOnFocus="true"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +35,7 @@
             android:paddingRight="10dp"
             android:layout_marginTop="15dp"
             tools:ignore="RtlSymmetry"
+            android:singleLine="true"
             android:fontFamily="@font/rubik"
             android:selectAllOnFocus="true"
             android:textSize="23sp"
@@ -46,6 +48,7 @@
         android:hint="סיסמה"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"
+        android:singleLine="true"
         android:layout_width="300sp"
         android:layout_height="40sp"
         android:gravity="center|end"

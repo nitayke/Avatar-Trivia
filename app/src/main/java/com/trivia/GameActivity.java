@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
+import static java.lang.Thread.currentThread;
 import static com.trivia.MainActivity.ref;
 
 public class GameActivity extends AppCompatActivity {
@@ -52,35 +52,40 @@ public class GameActivity extends AppCompatActivity {
                 {
                     not_used_questions.add(i);
                 }
+                while (life > 0)
+                {
+                    game();
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                endGame();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-        while (life > 0)
-        {
-            game();
-        }
-        endGame();
     }
 
     void game() {
         final boolean[] timeUp = {false};
         TextView scoreTxt = findViewById(R.id.gameScore);
-        TextView question = findViewById(R.id.gameQuestion);
+        final TextView question = findViewById(R.id.gameQuestion);
         TextView lifes = findViewById(R.id.gameLifes);
         final Button[] buttons = {findViewById(R.id.gameBtn1), findViewById(R.id.gameBtn2), findViewById(R.id.gameBtn3), findViewById(R.id.gameBtn4)};
         ProgressBar progressBar = findViewById(R.id.gameProgressBar);
         final TextView timerTxt = findViewById(R.id.gameTimerTxt);
         final Map<String, Object> questionMap = new HashMap<>();
         Random rand = new Random();
-        final int correctAnswer;
+        final int[] correctAnswer = new int[1];
         final long[] milliseconds = new long[1];
 
         for (Button i : buttons)
-            i.setBackgroundColor(Color.parseColor("@android:color/holo_blue_light"));
+            i.setBackgroundColor(Color.parseColor("#ff33b5e5"));
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
-        CountDownTimer timer = new CountDownTimer(10000, 100) {
+        final CountDownTimer timer = new CountDownTimer(10000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerTxt.setText(new DecimalFormat("##.#").format(millisUntilFinished/1000));
@@ -104,40 +109,41 @@ public class GameActivity extends AppCompatActivity {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     questionMap.put(ds.getKey(), ds.getValue());
                 }
+                Collections.shuffle(numbers);
+                question.setText(questionMap.get("question").toString());
+                for (int i = 0; i < 4; i++)
+                    buttons[i].setText(questionMap.get(numbers.get(i)).toString());
+                correctAnswer[0] = numbers.indexOf("1");
+
+                for (int i = 0; i < 4; i++)
+                {
+                    final int finalI = i;
+                    buttons[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            buttons[correctAnswer[0]].setBackgroundColor(Color.parseColor("#00FF00"));
+                            if (finalI != correctAnswer[0])
+                            {
+                                buttons[finalI].setBackgroundColor(Color.parseColor("#FF0000"));
+                                life--;
+                            }
+                            else
+                                score += (milliseconds[0]/100);
+                            notify();
+                        }
+                    });
+                }
+                if (!timeUp[0])
+                    timer.cancel();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
-        Collections.shuffle(numbers);
-        question.setText(questionMap.get("question").toString());
-        for (int i = 0; i < 4; i++)
-            buttons[i].setText(questionMap.get(numbers.get(i)).toString());
-        correctAnswer = numbers.indexOf("1");
-
-        for (int i = 0; i < 4; i++)
-        {
-            final int finalI = i;
-            buttons[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buttons[correctAnswer].setBackgroundColor(Color.parseColor("#00FF00"));
-                    if (finalI != correctAnswer)
-                    {
-                        buttons[finalI].setBackgroundColor(Color.parseColor("#FF0000"));
-                        life--;
-                    }
-                    else
-                        score += (milliseconds[0]/100);
-                }
-            });
-        }
-        if (!timeUp[0])
-            timer.cancel();
     }
 
     void endGame()
     {
-        ((ViewGroup)findViewById(R.id.gameLayout)).removeAllViews();
+        finish();
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
         intent.putExtra("SCORE", score);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

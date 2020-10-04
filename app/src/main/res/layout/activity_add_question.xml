@@ -25,99 +25,103 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/addQuestionQuestion"
-        android:hint="שאלה"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/rubik"
-        android:background="@drawable/edittxt"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="RtlSymmetry"
-        app:layout_constraintTop_toBottomOf="@+id/addQuestionText"/>
-
-    <EditText
-        android:id="@+id/addQuestionCorrect"
-        android:hint="תשובה נכונה"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/rubik"
-        android:background="@drawable/edittxt"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="RtlSymmetry"
-        app:layout_constraintTop_toBottomOf="@+id/addQuestionQuestion" />
-
-    <EditText
-        android:id="@+id/addQuestionFalse1"
-        android:hint="תשובה שגויה 1"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/rubik"
-        android:background="@drawable/edittxt"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="RtlSymmetry"
-        app:layout_constraintTop_toBottomOf="@+id/addQuestionCorrect" />
-
-    <EditText
-        android:id="@+id/addQuestionFalse2"
-        android:hint="תשובה שגויה 2"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/rubik"
-        android:background="@drawable/edittxt"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="RtlSymmetry"
-        app:layout_constraintTop_toBottomOf="@+id/addQuestionFalse1" />
-
-    <EditText
-        android:id="@+id/addQuestionFalse3"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/rubik"
-        android:background="@drawable/edittxt"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:textSize="23sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="RtlSymmetry"
-        android:hint="תשובה שגויה 3"
-        app:layout_constraintTop_toBottomOf="@+id/addQuestionFalse2"/>
-
-    <Button
-        android:id="@+id/addQuestionBtn"
-        android:textSize="27sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="250dp"
-        android:fontFamily="@font/rubik"
-        android:background="@drawable/button"
-        android:text="הוסף שאלה"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="310dp"
+        android:layout_height="356dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addQuestionFalse3" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/addQuestionQuestion"
+            android:layout_width="300sp"
+            android:layout_height="40sp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/edittxt"
+            android:singleLine="true"
+            android:fontFamily="@font/rubik"
+            android:hint="שאלה"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="23sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/addQuestionCorrect"
+            android:layout_width="300sp"
+            android:layout_height="40sp"
+            android:layout_marginTop="50dp"
+            android:singleLine="true"
+            android:background="@drawable/edittxt"
+            android:fontFamily="@font/rubik"
+            android:hint="תשובה נכונה"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="23sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/addQuestionFalse1"
+            android:layout_width="300sp"
+            android:layout_height="40sp"
+            android:singleLine="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittxt"
+            android:fontFamily="@font/rubik"
+            android:hint="תשובה שגויה 1"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="23sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/addQuestionFalse2"
+            android:layout_width="300sp"
+            android:layout_height="40sp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittxt"
+            android:singleLine="true"
+            android:fontFamily="@font/rubik"
+            android:hint="תשובה שגויה 2"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="23sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/addQuestionFalse3"
+            android:layout_width="300sp"
+            android:layout_height="40sp"
+            android:layout_marginTop="15dp"
+            android:singleLine="true"
+            android:background="@drawable/edittxt"
+            android:fontFamily="@font/rubik"
+            android:hint="תשובה שגויה 3"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:textSize="23sp"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/addQuestionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="250dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/rubik"
+        android:text="הוסף שאלה"
+        android:textSize="27sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/addQuestionMsg"
