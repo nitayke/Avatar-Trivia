@@ -43,6 +43,18 @@ public class GameActivity extends AppCompatActivity {
     private long[] milliseconds = new long[1];
     private ProgressBar timeProgressBar;
     private TextView points;
+    final CountDownTimer timer = new CountDownTimer(10000, 200) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
+            milliseconds[0] = millisUntilFinished;
+        }
+        @Override
+        public void onFinish() {
+            life--;
+            game();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,18 +83,6 @@ public class GameActivity extends AppCompatActivity {
             i.getBackground().clearColorFilter();
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
-        final CountDownTimer timer = new CountDownTimer(10000, 200) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
-                milliseconds[0] = millisUntilFinished;
-            }
-            @Override
-            public void onFinish() {
-                life--;
-                game();
-            }
-        };
         timer.start();
         if (not_used_questions.size() == 1) {
             endGame();
@@ -92,47 +92,8 @@ public class GameActivity extends AppCompatActivity {
         ref.child("questions").child(String.valueOf(index)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    questionMap.put(ds.getKey(), ds.getValue());
-                }
-                Collections.shuffle(numbers);
-                question.setText(questionMap.get("question").toString());
-                for (int i = 0; i < 4; i++)
-                    buttons[i].setText(questionMap.get(numbers.get(i)).toString());
-                correctAnswer[0] = numbers.indexOf("1");
-                progressBar.setVisibility(View.GONE);
-                for (int i = 0; i < 4; i++)
-                {
-                    final int finalI = i;
-                    buttons[i].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            buttons[correctAnswer[0]].getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-                            if (finalI != correctAnswer[0])
-                            {
-                                buttons[finalI].getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_OVER);
-                                life--;
-                            }
-                            else {
-                                int pointsInt = (int) (Math.pow(((double) milliseconds[0]) / 100, 2) / 50);
-                                score += pointsInt;
-                                String pointsTxt = "+" + pointsInt;
-                                points.setText(pointsTxt);
-                            }
-                            try {
-                                sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            points.setText("");
-                            timer.cancel();
-                            if (life > 0)
-                                game();
-                            else
-                                endGame();
-                        }
-                    });
-                }
+                setQuestion(dataSnapshot);
+                setButtonsListener();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -161,5 +122,59 @@ public class GameActivity extends AppCompatActivity {
         buttons[3] = findViewById(R.id.gameBtn4);
         timeProgressBar.bringToFront();
         points = findViewById(R.id.gamePoints);
+    }
+
+    void setColors(int i)
+    {
+        buttons[correctAnswer[0]].getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+        if (i != correctAnswer[0])
+        {
+            buttons[i].getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_OVER);
+            life--;
+        }
+        else {
+            int pointsInt = (int) (Math.pow(((double) milliseconds[0]) / 100, 2) / 50);
+            score += pointsInt;
+            String pointsTxt = "+" + pointsInt;
+            points.setText(pointsTxt);
+        }
+    }
+
+    void setQuestion(@NonNull DataSnapshot dataSnapshot)
+    {
+        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+            questionMap.put(ds.getKey(), ds.getValue());
+        }
+        Collections.shuffle(numbers);
+        question.setText(questionMap.get("question").toString());
+        for (int i = 0; i < 4; i++)
+            buttons[i].setText(questionMap.get(numbers.get(i)).toString());
+        correctAnswer[0] = numbers.indexOf("1");
+        progressBar.setVisibility(View.GONE);
+    }
+
+    void setButtonsListener()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            final int finalI = i;
+            buttons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setColors(finalI);
+                    try {
+                        sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    points.setText("");
+                    timer.cancel();
+                    if (life > 0)
+                        game();
+                    else
+                        endGame();
+                }
+            });
+        }
     }
 }
