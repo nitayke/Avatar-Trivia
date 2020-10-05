@@ -51,7 +51,7 @@ public class AllTimeFragment extends Fragment {
                 for (DataSnapshot i : snapshot.getChildren())
                 {
                     scores.add(new Score(i.child("user").getValue(String.class),
-                            String.valueOf(i.child("score").getValue(Integer.class)),
+                            i.child("score").getValue(Integer.class),
                             i.child("week").getValue(String.class)));
                 }
                 Collections.reverse(scores);

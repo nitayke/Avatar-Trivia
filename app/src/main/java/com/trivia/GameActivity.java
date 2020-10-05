@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -27,20 +28,31 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.trivia.MainActivity.ref;
+import static java.lang.Thread.sleep;
 
 public class GameActivity extends AppCompatActivity {
     private int life = 3;
     private int score = 0;
     private ArrayList<Integer> not_used_questions = new ArrayList<>();
     private List<String> numbers = new ArrayList<>();
+    private ProgressBar progressBar;
+    private TextView scoreTxt;
+    private TextView question;
+    private TextView lifes;
+    private Button[] buttons = new Button[4];
+    private Map<String, Object> questionMap = new HashMap<>();
+    private Random rand = new Random();
+    private int[] correctAnswer = new int[1];
+    private long[] milliseconds = new long[1];
+    private ProgressBar timeProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        setViews();
         for (int i = 1; i <= 4; i++)
-        {
             numbers.add(String.valueOf(i));
-        }
         ref.child("questions").child("number").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -50,11 +62,7 @@ public class GameActivity extends AppCompatActivity {
                     not_used_questions.add(i);
                 }
                 // TODO: fix the threading in the game
-                //while (life > 0)
-                //{
-                    game();
-                //}
-                //endGame();
+                game();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
@@ -62,39 +70,23 @@ public class GameActivity extends AppCompatActivity {
     }
 
     void game() {
-        final boolean[] timeUp = {false};
-        TextView scoreTxt = findViewById(R.id.gameScore);
-        final TextView question = findViewById(R.id.gameQuestion);
-        TextView lifes = findViewById(R.id.gameLifes);
-        final Button[] buttons = {findViewById(R.id.gameBtn1), findViewById(R.id.gameBtn2), findViewById(R.id.gameBtn3), findViewById(R.id.gameBtn4)};
-        final ProgressBar progressBar = findViewById(R.id.gameProgressBar);
-        final Map<String, Object> questionMap = new HashMap<>();
-        Random rand = new Random();
-        final int[] correctAnswer = new int[1];
-        final long[] milliseconds = new long[1];
-
-        progressBar.bringToFront();
-
         for (Button i : buttons)
             i.getBackground().clearColorFilter();
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
-        final CountDownTimer timer = new CountDownTimer(10000, 500) {
+        final CountDownTimer timer = new CountDownTimer(10000, 200) {
             @Override
             public void onTick(long millisUntilFinished) {
-                // TODO: fix the timer view
-                progressBar.setProgress((int) (progressBar.getMax() - millisUntilFinished/200));
+                timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
                 milliseconds[0] = millisUntilFinished;
             }
             @Override
             public void onFinish() {
-                timeUp[0] = true;
-                finish();
+                life--;
+                game();
             }
         };
         timer.start();
-        // TODO: make it invisible after end of loading
-        progressBar.setVisibility(View.VISIBLE);
         if (not_used_questions.size() == 1) {
             endGame();
         }
@@ -111,29 +103,34 @@ public class GameActivity extends AppCompatActivity {
                 for (int i = 0; i < 4; i++)
                     buttons[i].setText(questionMap.get(numbers.get(i)).toString());
                 correctAnswer[0] = numbers.indexOf("1");
-
+                progressBar.setVisibility(View.GONE);
                 for (int i = 0; i < 4; i++)
                 {
                     final int finalI = i;
                     buttons[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //buttons[correctAnswer[0]].setBackgroundColor(Color.parseColor("#00FF00"));
                             buttons[correctAnswer[0]].getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
                             if (finalI != correctAnswer[0])
                             {
-                                // TODO: fix red color
-                                //buttons[finalI].setBackgroundColor(Color.parseColor("#FF0000"));
                                 buttons[finalI].getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_OVER);
                                 life--;
                             }
                             else
-                                score += (milliseconds[0]/100);
+                                score += (Math.pow(((float)milliseconds[0])/100, 2)/100);
+                            try {
+                                sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            timer.cancel();
+                            if (life > 0)
+                                game();
+                            else
+                                endGame();
                         }
                     });
                 }
-                if (!timeUp[0])
-                    timer.cancel();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -147,5 +144,20 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("SCORE", score);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    void setViews()
+    {
+        progressBar = findViewById(R.id.gameProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+        scoreTxt = findViewById(R.id.gameScore);
+        question = findViewById(R.id.gameQuestion);
+        lifes = findViewById(R.id.gameLifes);
+        timeProgressBar = findViewById(R.id.gameTimeProgressBar);
+        buttons[0] = findViewById(R.id.gameBtn1);
+        buttons[1] = findViewById(R.id.gameBtn2);
+        buttons[2] = findViewById(R.id.gameBtn3);
+        buttons[3] = findViewById(R.id.gameBtn4);
+        timeProgressBar.bringToFront();
     }
 }

@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
