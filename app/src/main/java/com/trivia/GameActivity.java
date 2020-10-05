@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -65,8 +67,7 @@ public class GameActivity extends AppCompatActivity {
         final TextView question = findViewById(R.id.gameQuestion);
         TextView lifes = findViewById(R.id.gameLifes);
         final Button[] buttons = {findViewById(R.id.gameBtn1), findViewById(R.id.gameBtn2), findViewById(R.id.gameBtn3), findViewById(R.id.gameBtn4)};
-        ProgressBar progressBar = findViewById(R.id.gameProgressBar);
-        final TextView timerTxt = findViewById(R.id.gameTimerTxt);
+        final ProgressBar progressBar = findViewById(R.id.gameProgressBar);
         final Map<String, Object> questionMap = new HashMap<>();
         Random rand = new Random();
         final int[] correctAnswer = new int[1];
@@ -74,27 +75,27 @@ public class GameActivity extends AppCompatActivity {
 
         progressBar.bringToFront();
 
-        for (Button i : buttons) {
-            i.setBackground (getResources().getDrawable(getResources().getIdentifier("@drawable/button", null, getPackageName())));
-        }
+        for (Button i : buttons)
+            i.getBackground().clearColorFilter();
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
-        final CountDownTimer timer = new CountDownTimer(10000, 100) {
+        final CountDownTimer timer = new CountDownTimer(10000, 500) {
             @Override
             public void onTick(long millisUntilFinished) {
                 // TODO: fix the timer view
-                timerTxt.setText(new DecimalFormat("##.#").format(millisUntilFinished/1000));
+                progressBar.setProgress((int) (progressBar.getMax() - millisUntilFinished/200));
                 milliseconds[0] = millisUntilFinished;
             }
             @Override
             public void onFinish() {
                 timeUp[0] = true;
+                finish();
             }
         };
         timer.start();
         // TODO: make it invisible after end of loading
         progressBar.setVisibility(View.VISIBLE);
-        if (not_used_questions.isEmpty()) {
+        if (not_used_questions.size() == 1) {
             endGame();
         }
         int index = not_used_questions.get(rand.nextInt(not_used_questions.size() - 1) + 1);
@@ -118,12 +119,12 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             //buttons[correctAnswer[0]].setBackgroundColor(Color.parseColor("#00FF00"));
-                            buttons[correctAnswer[0]].getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
+                            buttons[correctAnswer[0]].getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
                             if (finalI != correctAnswer[0])
                             {
                                 // TODO: fix red color
                                 //buttons[finalI].setBackgroundColor(Color.parseColor("#FF0000"));
-                                buttons[finalI].getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+                                buttons[finalI].getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_OVER);
                                 life--;
                             }
                             else
