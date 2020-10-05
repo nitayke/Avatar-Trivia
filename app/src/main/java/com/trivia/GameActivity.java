@@ -79,8 +79,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     void game() {
-        for (Button i : buttons)
-            i.getBackground().clearColorFilter();
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
         timer.start();
@@ -142,6 +140,14 @@ public class GameActivity extends AppCompatActivity {
 
     void setQuestion(@NonNull DataSnapshot dataSnapshot)
     {
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (Button i : buttons)
+            i.getBackground().clearColorFilter();
+        points.setText("");
         for(DataSnapshot ds : dataSnapshot.getChildren()) {
             questionMap.put(ds.getKey(), ds.getValue());
         }
@@ -162,12 +168,6 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setColors(finalI);
-                    try {
-                        sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    points.setText("");
                     timer.cancel();
                     if (life > 0)
                         game();

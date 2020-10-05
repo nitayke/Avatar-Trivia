@@ -3,6 +3,7 @@ package com.trivia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText email;
     private EditText username;
     private TextView msg;
+    Button signupButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class SignupActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.signupLoading);
         email = findViewById(R.id.signupEmail);
         username = findViewById(R.id.signupUsername);
-        Button signupButton = findViewById(R.id.signupBtn);
+        signupButton = findViewById(R.id.signupBtn);
         msg = findViewById(R.id.signupMsg);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +95,16 @@ public class SignupActivity extends AppCompatActivity {
                             msg.setText("נשלח אליך מייל לאימות החשבון");
                             Map<String, Object> map = new HashMap<>();
                             map.put(MainActivity.username, MainActivity.email);
-                            ref.updateChildren(map);
+                            ref.child("users").updateChildren(map);
+                            signupButton.setText("פתיחת Gmail");
+                            signupButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    finish();
+                                    Intent intent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
+                                    startActivity(intent);
+                                }
+                            });
                         } else {
                             try {
                                 throw task.getException();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Avatar Trivia</string>
+    <string name="app_name">טריוויה אווטאר</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="welcome">"ברוכים הבאים!"</string>
     <string name="invalid_username">שם המשתמש אינו תקין!</string>

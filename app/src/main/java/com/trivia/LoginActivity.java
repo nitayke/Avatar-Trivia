@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         MainActivity.email = dataSnapshot.getValue(String.class);
                         if (MainActivity.email == null)
                         {
+                            progressBar.setVisibility(View.GONE);
                             msg.setText("שם המשתמש אינו קיים!");
                             return;
                         }
