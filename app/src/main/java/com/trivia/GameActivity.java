@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
     private int[] correctAnswer = new int[1];
     private long[] milliseconds = new long[1];
     private ProgressBar timeProgressBar;
+    private TextView points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,6 @@ public class GameActivity extends AppCompatActivity {
                 {
                     not_used_questions.add(i);
                 }
-                // TODO: fix the threading in the game
                 game();
             }
             @Override
@@ -116,13 +113,18 @@ public class GameActivity extends AppCompatActivity {
                                 buttons[finalI].getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_OVER);
                                 life--;
                             }
-                            else
-                                score += (Math.pow(((float)milliseconds[0])/100, 2)/100);
+                            else {
+                                int pointsInt = (int) (Math.pow(((double) milliseconds[0]) / 100, 2) / 50);
+                                score += pointsInt;
+                                String pointsTxt = "+" + pointsInt;
+                                points.setText(pointsTxt);
+                            }
                             try {
                                 sleep(2000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            points.setText("");
                             timer.cancel();
                             if (life > 0)
                                 game();
@@ -142,7 +144,6 @@ public class GameActivity extends AppCompatActivity {
         finish();
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
         intent.putExtra("SCORE", score);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -159,5 +160,6 @@ public class GameActivity extends AppCompatActivity {
         buttons[2] = findViewById(R.id.gameBtn3);
         buttons[3] = findViewById(R.id.gameBtn4);
         timeProgressBar.bringToFront();
+        points = findViewById(R.id.gamePoints);
     }
 }
