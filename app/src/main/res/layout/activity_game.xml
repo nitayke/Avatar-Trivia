@@ -82,8 +82,9 @@
 
     <LinearLayout
         android:id="@+id/gameButtonsLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:orientation="vertical"
         android:padding="10sp"
         app:layout_constraintBottom_toTopOf="@+id/gameLifes"
@@ -138,7 +139,7 @@
         android:visibility="gone"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="150dp"
+        android:layout_marginVertical="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

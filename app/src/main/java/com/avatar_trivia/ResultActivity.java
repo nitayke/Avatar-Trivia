@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -17,7 +19,9 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
+        final EditText guestName = findViewById(R.id.resultGuestName);
+        Button saveBtn = findViewById(R.id.resultSave);
         TextView scoreTxt = findViewById(R.id.resultScore);
         Button backBtn = findViewById(R.id.resultBack);
 
@@ -26,6 +30,21 @@ public class ResultActivity extends AppCompatActivity {
             Score score = new Score(MainActivity.username, getIntent().getIntExtra("SCORE", 0),
                     "" + c.get(Calendar.YEAR) + c.get(Calendar.WEEK_OF_YEAR));
             ref.child("scores").push().setValue(score);
+        }
+        else
+        {
+            guestName.setVisibility(View.VISIBLE);
+            saveBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Score score = new Score(guestName.getText().toString(), getIntent().getIntExtra("SCORE", 0),
+                            "" + c.get(Calendar.YEAR) + c.get(Calendar.WEEK_OF_YEAR));
+                    ref.child("scores").push().setValue(score);
+                    finish();
+                    Toast.makeText(getApplicationContext(), "השיא נשמר בהצלחה!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                }
+            });
         }
 
         backBtn.setOnClickListener(new View.OnClickListener() {
