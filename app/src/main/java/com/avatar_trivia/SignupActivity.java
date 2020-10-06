@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +34,6 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private EditText email;
     private EditText username;
-    private TextView msg;
     Button signupButton;
 
     @Override
@@ -52,13 +52,12 @@ public class SignupActivity extends AppCompatActivity {
         email = findViewById(R.id.signupEmail);
         username = findViewById(R.id.signupUsername);
         signupButton = findViewById(R.id.signupBtn);
-        msg = findViewById(R.id.signupMsg);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (email.getText().toString().trim().isEmpty() || username.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()) {
-                    msg.setText("נא למלא את כל השדות!");
+                    Toast.makeText(getApplicationContext(), "נא למלא את כל השדות!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -68,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.getValue() != null) {
-                            msg.setText("שם המשתמש קיים!");
+                            Toast.makeText(getApplicationContext(), "שם המשתמש קיים!", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
                         else
@@ -91,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             task.getResult().getUser().sendEmailVerification();
-                            msg.setText("נשלח אליך מייל לאימות החשבון");
+                            Toast.makeText(getApplicationContext(), "נשלח אליך מייל לאימות החשבון.", Toast.LENGTH_SHORT).show();
                             Map<String, Object> map = new HashMap<>();
                             map.put(MainActivity.username, MainActivity.email);
                             ref.child("users").updateChildren(map);
@@ -108,13 +107,13 @@ public class SignupActivity extends AppCompatActivity {
                             try {
                                 throw task.getException();
                             } catch(FirebaseAuthWeakPasswordException e) {
-                                msg.setText("הסיסמה קצרה מידי!");
+                                Toast.makeText(getApplicationContext(), "הסיסמה שלך קצרה מידי!", Toast.LENGTH_SHORT).show();
                             } catch(FirebaseAuthInvalidCredentialsException e) {
-                                msg.setText("המייל שלך אינו תקין!");
+                                Toast.makeText(getApplicationContext(), "המייל שלך אינו תקין!", Toast.LENGTH_SHORT).show();
                             } catch(FirebaseAuthUserCollisionException e) {
-                                msg.setText("המייל שלך בשימוש!");
+                                Toast.makeText(getApplicationContext(), "המייל שלך בשימוש!", Toast.LENGTH_SHORT).show();
                             } catch(Exception e) {
-                                msg.setText(e.getMessage());
+                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +32,6 @@ public class AddQuestionActivity extends AppCompatActivity {
         final EditText false1 = findViewById(R.id.addQuestionFalse1);
         final EditText false2 = findViewById(R.id.addQuestionFalse2);
         final EditText false3 = findViewById(R.id.addQuestionFalse3);
-        final TextView msg = findViewById(R.id.addQuestionMsg);
         final int[] number = new int[1];
         final ProgressBar progressBar = findViewById(R.id.addQuestionProgressBar);
         final Map<String, Object> values = new HashMap<>();
@@ -43,7 +43,7 @@ public class AddQuestionActivity extends AppCompatActivity {
                 if (question.getText().toString().isEmpty() || correct.getText().toString().isEmpty() ||
                         false1.getText().toString().isEmpty() || false2.getText().toString().isEmpty() || false3.getText().toString().isEmpty())
                 {
-                    msg.setText("נא למלא את כל השדות");
+                    Toast.makeText(getApplicationContext(), "נא למלא את כל השדות!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -61,7 +61,7 @@ public class AddQuestionActivity extends AppCompatActivity {
                         values.put(String.valueOf(number[0]), questionMap);
                         ref.child("questions").updateChildren(values);
                         progressBar.setVisibility(View.GONE);
-                        msg.setText("השאלה נוספה בהצלחה!");
+                        Toast.makeText(getApplicationContext(), "השאלה נוספה בהצלחה!", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {}

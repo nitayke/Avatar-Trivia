@@ -33,6 +33,7 @@ public class ResultActivity extends AppCompatActivity {
         }
         else
         {
+            saveBtn.setVisibility(View.VISIBLE);
             guestName.setVisibility(View.VISIBLE);
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override

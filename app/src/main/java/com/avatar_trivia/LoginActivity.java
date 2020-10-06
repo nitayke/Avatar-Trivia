@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CheckBox checkBox;
     private ProgressBar progressBar;
-    private TextView msg;
     private EditText usernameET;
     private EditText passwordET;
 
@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
 
         checkBox = findViewById(R.id.loginCheckBox);
         progressBar = findViewById(R.id.loginLoading);
-        msg = findViewById(R.id.loginMsg);
         usernameET = findViewById(R.id.loginUsername);
         passwordET = findViewById(R.id.loginPassword);
         Button loginBtn = findViewById(R.id.loginBtn);
@@ -57,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (usernameET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty()) {
-                    msg.setText("נא למלא את כל השדות!");
+                    Toast.makeText(getApplicationContext(), "נא למלא את כל השדות!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -69,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (MainActivity.email == null)
                         {
                             progressBar.setVisibility(View.GONE);
-                            msg.setText("שם המשתמש אינו קיים!");
+                            Toast.makeText(getApplicationContext(), "שם המשתמש אינו קיים!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         signIn(MainActivity.email, passwordET.getText().toString().trim());
@@ -90,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             if (!task.getResult().getUser().isEmailVerified())
-                                msg.setText("המייל שלך אינו מאומת! (חה חה מאומת לא מצחיק)");
+                                Toast.makeText(getApplicationContext(), "המייל שלך אינו מאומת!", Toast.LENGTH_SHORT).show();
                             else {
                                 if (checkBox.isChecked())
                                 {
@@ -107,13 +106,13 @@ public class LoginActivity extends AppCompatActivity {
                             String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
                             switch (errorCode) {
                                 case "ERROR_WRONG_PASSWORD":
-                                    msg.setText("הסיסמה שגויה!");
+                                    Toast.makeText(getApplicationContext(), "הסיסמה שגויה!", Toast.LENGTH_SHORT).show();
                                     break;
                                 case "ERROR_WEAK_PASSWORD":
-                                    msg.setText("הסיסמה שלך קצרה מידי!");
+                                    Toast.makeText(getApplicationContext(), "הסיסמה שלך קצרה מידי!", Toast.LENGTH_SHORT).show();
                                     break;
                                 default:
-                                    msg.setText(task.getException().toString());
+                                    Toast.makeText(getApplicationContext(), task.getException().toString(), Toast.LENGTH_SHORT).show();
                                     break;
                             }
                         }
