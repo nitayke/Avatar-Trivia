@@ -22,7 +22,8 @@ public class ResultActivity extends AppCompatActivity {
         Button backBtn = findViewById(R.id.resultBack);
 
         scoreTxt.setText(getString(R.string.score, getIntent().getIntExtra("SCORE", 0)));
-
+        if (MainActivity.username == null)
+            return;
         Score score = new Score(MainActivity.username, getIntent().getIntExtra("SCORE", 0),
                 ""+c.get(Calendar.YEAR)+c.get(Calendar.WEEK_OF_YEAR));
         ref.child("scores").push().setValue(score);

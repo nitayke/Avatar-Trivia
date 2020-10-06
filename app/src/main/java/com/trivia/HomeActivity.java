@@ -16,6 +16,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         Button startGameButton = findViewById(R.id.homeStartGame);
         Button top10Button = findViewById(R.id.homeTop10);
         Button addQuestionButton = findViewById(R.id.homeAddQuestion);
