@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,7 +27,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.avatar_trivia.MainActivity.ref;
-import static java.lang.Thread.sleep;
 
 public class GameActivity extends AppCompatActivity {
     private int life = 3;
@@ -43,18 +44,11 @@ public class GameActivity extends AppCompatActivity {
     private long[] milliseconds = new long[1];
     private ProgressBar timeProgressBar;
     private TextView points;
-    final CountDownTimer timer = new CountDownTimer(10000, 200) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
-            milliseconds[0] = millisUntilFinished;
-        }
-        @Override
-        public void onFinish() {
-            life--;
-            game();
-        }
-    };
+    private ImageButton imageButton;
+    private ImageView imageView;
+    private Button resume;
+    private Button quit;
+    CountDownTimer timer = getTimer(10000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
                 {
                     not_used_questions.add(i);
                 }
+                setButtonsListener();
                 game();
             }
             @Override
@@ -79,6 +74,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     void game() {
+        timer = getTimer(10000);
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
         timer.start();
@@ -91,7 +87,6 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 setQuestion(dataSnapshot);
-                setButtonsListener();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
@@ -120,6 +115,22 @@ public class GameActivity extends AppCompatActivity {
         buttons[3] = findViewById(R.id.gameBtn4);
         timeProgressBar.bringToFront();
         points = findViewById(R.id.gamePoints);
+        imageButton = findViewById(R.id.gameImageButton);
+        imageView = findViewById(R.id.gamePauseView);
+        resume = findViewById(R.id.gameResume);
+        quit = findViewById(R.id.gameQuit);
+
+        resume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setVisibility(View.GONE);
+                resume.setVisibility(View.GONE);
+                quit.setVisibility(View.GONE);
+
+                timer = getTimer(milliseconds[0]);
+                timer.start();
+            }
+        });
     }
 
     void setColors(int i)
@@ -143,11 +154,6 @@ public class GameActivity extends AppCompatActivity {
         for (Button i : buttons)
             i.getBackground().clearColorFilter();
         points.setText("");
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         for(DataSnapshot ds : dataSnapshot.getChildren()) {
             questionMap.put(ds.getKey(), ds.getValue());
         }
@@ -176,5 +182,38 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView imageView = findViewById(R.id.gamePauseView);
+                Button resume = findViewById(R.id.gameResume);
+                Button quit = findViewById(R.id.gameQuit);
+
+                imageView.setVisibility(View.VISIBLE);
+                resume.setVisibility(View.VISIBLE);
+                quit.setVisibility(View.VISIBLE);
+
+                timer.cancel();
+            }
+        });
+    }
+
+    CountDownTimer getTimer(long millisecondsLong)
+    {
+        return new CountDownTimer(millisecondsLong, 200) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
+                milliseconds[0] = millisUntilFinished;
+            }
+            @Override
+            public void onFinish() {
+                life--;
+                if (life > 0)
+                    game();
+                else
+                    endGame();
+            }
+        };
     }
 }
