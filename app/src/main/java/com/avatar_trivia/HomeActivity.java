@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import static com.trivia.MainActivity.PREFS_NAME;
+import static com.avatar_trivia.MainActivity.PREFS_NAME;
 
 public class HomeActivity extends AppCompatActivity {
 

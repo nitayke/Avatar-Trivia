@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static com.trivia.MainActivity.ref;
+import static com.avatar_trivia.MainActivity.ref;
 import static java.lang.Thread.sleep;
 
 public class GameActivity extends AppCompatActivity {
@@ -140,14 +140,14 @@ public class GameActivity extends AppCompatActivity {
 
     void setQuestion(@NonNull DataSnapshot dataSnapshot)
     {
+        for (Button i : buttons)
+            i.getBackground().clearColorFilter();
+        points.setText("");
         try {
             sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (Button i : buttons)
-            i.getBackground().clearColorFilter();
-        points.setText("");
         for(DataSnapshot ds : dataSnapshot.getChildren()) {
             questionMap.put(ds.getKey(), ds.getValue());
         }

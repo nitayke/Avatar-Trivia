@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.trivia.MainActivity.ref;
+import static com.avatar_trivia.MainActivity.ref;
 
 public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;

@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 

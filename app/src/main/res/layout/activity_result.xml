@@ -28,14 +28,12 @@
         android:id="@+id/resultBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:width="200dp"
         android:background="@drawable/button"
         android:fontFamily="@font/rubik"
         android:text="חזרה למסך הבית"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
         android:layout_marginBottom="200dp"
         app:layout_constraintStart_toStartOf="parent" />
 

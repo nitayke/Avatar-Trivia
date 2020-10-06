@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +21,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.trivia.MainActivity.PREFS_NAME;
-import static com.trivia.MainActivity.PREF_EMAIL;
-import static com.trivia.MainActivity.PREF_USERNAME;
-import static com.trivia.MainActivity.ref;
+import static com.avatar_trivia.MainActivity.PREFS_NAME;
+import static com.avatar_trivia.MainActivity.PREF_EMAIL;
+import static com.avatar_trivia.MainActivity.PREF_USERNAME;
+import static com.avatar_trivia.MainActivity.ref;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                             .putString(PREF_EMAIL, MainActivity.email)
                                             .apply();
                                 }
+                                finish();
                                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                             }
                         } else {

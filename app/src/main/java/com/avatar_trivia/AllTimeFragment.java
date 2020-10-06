@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import android.os.Bundle;
 
@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.trivia.MainActivity.ref;
+import static com.avatar_trivia.MainActivity.ref;
 
 
 public class AllTimeFragment extends Fragment {

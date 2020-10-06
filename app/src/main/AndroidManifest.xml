@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.trivia">
+    package="com.avatar_trivia">
 
     <application
         android:allowBackup="true"
@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".BestScoresActivity"
+            android:name="com.avatar_trivia.BestScoresActivity"
             android:label="@string/title_activity_best_scores"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".AddQuestionActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.avatar_trivia.ResultActivity" />
+        <activity android:name="com.avatar_trivia.GameActivity" />
+        <activity android:name="com.avatar_trivia.AddQuestionActivity" />
+        <activity android:name="com.avatar_trivia.HomeActivity" />
+        <activity android:name="com.avatar_trivia.SignupActivity" />
+        <activity android:name="com.avatar_trivia.LoginActivity" />
+        <activity android:name="com.avatar_trivia.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

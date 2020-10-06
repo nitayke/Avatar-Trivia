@@ -27,8 +27,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="310dp"
-        android:layout_height="356dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
 
         <EditText
             android:id="@+id/addQuestionQuestion"
-            android:layout_width="300sp"
+            android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginTop="50dp"
             android:background="@drawable/edittxt"
@@ -52,7 +52,7 @@
 
         <EditText
             android:id="@+id/addQuestionCorrect"
-            android:layout_width="300sp"
+            android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginTop="50dp"
             android:singleLine="true"
@@ -66,7 +66,7 @@
 
         <EditText
             android:id="@+id/addQuestionFalse1"
-            android:layout_width="300sp"
+            android:layout_width="match_parent"
             android:layout_height="40sp"
             android:singleLine="true"
             android:layout_marginTop="15dp"
@@ -80,7 +80,7 @@
 
         <EditText
             android:id="@+id/addQuestionFalse2"
-            android:layout_width="300sp"
+            android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edittxt"
@@ -94,7 +94,7 @@
 
         <EditText
             android:id="@+id/addQuestionFalse3"
-            android:layout_width="300sp"
+            android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginTop="15dp"
             android:singleLine="true"
@@ -125,11 +125,11 @@
 
     <TextView
         android:id="@+id/addQuestionMsg"
-        android:layout_width="317dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/rubik"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,8 +139,8 @@
         android:id="@+id/addQuestionProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="120dp"
-        android:visibility="gone"
         android:layout_height="120dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

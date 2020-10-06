@@ -10,4 +10,5 @@
     <string name="title_activity_best_scores">BestScoresActivity</string>
     <string name="tab_text_week">השבוע</string>
     <string name="tab_text_alltime">כל הזמנים</string>
+    <string name="signupButton">הרשמה</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.trivia.ui.main;
+package com.avatar_trivia.ui.main;
 
 import android.content.Context;
 
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.trivia.AllTimeFragment;
-import com.trivia.R;
-import com.trivia.WeekBestFragment;
+import com.avatar_trivia.AllTimeFragment;
+import com.avatar_trivia.R;
+import com.avatar_trivia.WeekBestFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

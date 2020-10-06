@@ -1,4 +1,4 @@
-package com.trivia;
+package com.avatar_trivia;
 
 import android.os.Bundle;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
-import static com.trivia.MainActivity.ref;
+import static com.avatar_trivia.MainActivity.ref;
 
 public class WeekBestFragment extends Fragment {
 
@@ -57,11 +57,17 @@ public class WeekBestFragment extends Fragment {
                             i.child("week").getValue(String.class)));
                 }
                 Collections.sort(finalScores[0]);
-                if (finalScores[0].size() >= 10)
-                    finalScores[0] = (ArrayList<Score>) finalScores[0].subList(0, 9);
-                ArrayAdapter<Score> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
-                        R.layout.list_textview, finalScores[0]);
-                listView.setAdapter(adapter);
+                if (finalScores[0].size() < 10) {
+                    ArrayAdapter<Score> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
+                            R.layout.list_textview, finalScores[0]);
+                    listView.setAdapter(adapter);
+                }
+                else
+                {
+                    ArrayAdapter<Score> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
+                            R.layout.list_textview, finalScores[0].subList(0, 9));
+                    listView.setAdapter(adapter);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
