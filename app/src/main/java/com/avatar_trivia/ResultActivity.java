@@ -38,6 +38,8 @@ public class ResultActivity extends AppCompatActivity {
             saveBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (guestName.getText().toString().isEmpty())
+                        return;
                     Score score = new Score(guestName.getText().toString(), getIntent().getIntExtra("SCORE", 0),
                             "" + c.get(Calendar.YEAR) + c.get(Calendar.WEEK_OF_YEAR));
                     ref.child("scores").push().setValue(score);
