@@ -65,7 +65,7 @@ public class WeekBestFragment extends Fragment {
                 else
                 {
                     ArrayAdapter<Score> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),
-                            R.layout.list_textview, finalScores[0].subList(0, 9));
+                            R.layout.list_textview, finalScores[0].subList(0, 10));
                     listView.setAdapter(adapter);
                 }
             }
