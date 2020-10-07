@@ -131,6 +131,14 @@ public class GameActivity extends AppCompatActivity {
                 timer.start();
             }
         });
+
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            }
+        });
     }
 
     void setColors(int i)
