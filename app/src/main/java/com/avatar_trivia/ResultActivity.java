@@ -39,7 +39,10 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (guestName.getText().toString().isEmpty())
+                    {
+                        Toast.makeText(getApplicationContext(), "נא לכתוב שם!", Toast.LENGTH_SHORT).show();
                         return;
+                    }
                     Score score = new Score(guestName.getText().toString(), getIntent().getIntExtra("SCORE", 0),
                             "" + c.get(Calendar.YEAR) + c.get(Calendar.WEEK_OF_YEAR));
                     ref.child("scores").push().setValue(score);

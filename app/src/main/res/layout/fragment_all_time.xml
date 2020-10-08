@@ -8,6 +8,5 @@
     <ListView
         android:id="@+id/allTimeListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 </FrameLayout>

@@ -16,13 +16,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         Button startGameButton = findViewById(R.id.homeStartGame);
         Button top10Button = findViewById(R.id.homeTop10);
         Button addQuestionButton = findViewById(R.id.homeAddQuestion);
         Button logoutButton = findViewById(R.id.homeLogout);
+        if (MainActivity.username == null)
+            logoutButton.setVisibility(View.GONE);
 
-        startGameButton.setOnClickListener(new View.OnClickListener() {
+            startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
