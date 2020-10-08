@@ -59,7 +59,7 @@
         android:textSize="45dp"
         android:shadowColor="#000000"
         android:shadowDx="2"
-        android:shadowRadius="3"
+        android:shadowRadius="5"
         android:shadowDy="2"
         android:text="טריוויה - אווטאר"
         app:layout_constraintBottom_toTopOf="@+id/mainSignup"

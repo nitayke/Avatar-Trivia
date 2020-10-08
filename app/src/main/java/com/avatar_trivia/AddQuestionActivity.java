@@ -43,8 +43,8 @@ public class AddQuestionActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "נא למלא את כל השדות!", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (i.getText().toString().length() > 30) {
-                        Toast.makeText(getApplicationContext(), "אורך השדות צריך להיות עד 30 תווים!", Toast.LENGTH_SHORT).show();
+                    if (i.getText().toString().length() > 40) {
+                        Toast.makeText(getApplicationContext(), "אורך השדות צריך להיות עד 40 תווים!", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

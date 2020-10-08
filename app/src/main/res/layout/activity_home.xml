@@ -69,7 +69,7 @@
         android:shadowColor="#000000"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:shadowRadius="3"
+        android:shadowRadius="5"
         android:text="טריוויה - אווטאר"
         android:textColor="#FFFFFF"
         android:textSize="45dp"
