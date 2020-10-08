@@ -57,13 +57,14 @@ public class AddQuestionActivity extends AppCompatActivity {
                         Map<String, Object> questionMap = new HashMap<>();
                         for (int i = 1; i <= 4; i++)
                         {
-                            questionMap.put(Integer.toString(i), inputs[i-1].getText().toString());
+                            questionMap.put(Integer.toString(i), inputs[i].getText().toString());
                         }
-                        questionMap.put("question", inputs[4].getText().toString());
+                        questionMap.put("question", inputs[0].getText().toString());
                         values.put(String.valueOf(number[0]), questionMap);
                         ref.child("questions").updateChildren(values);
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(), "השאלה נוספה בהצלחה!", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {}
