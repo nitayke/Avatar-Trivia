@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,11 +26,9 @@ public class AddQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
 
-        final EditText question = findViewById(R.id.addQuestionQuestion);
-        final EditText correct = findViewById(R.id.addQuestionCorrect);
-        final EditText false1 = findViewById(R.id.addQuestionFalse1);
-        final EditText false2 = findViewById(R.id.addQuestionFalse2);
-        final EditText false3 = findViewById(R.id.addQuestionFalse3);
+        final EditText[] inputs = {findViewById(R.id.addQuestionQuestion),
+        findViewById(R.id.addQuestionCorrect), findViewById(R.id.addQuestionFalse1),
+                        findViewById(R.id.addQuestionFalse2), findViewById(R.id.addQuestionFalse3)};
         final int[] number = new int[1];
         final ProgressBar progressBar = findViewById(R.id.addQuestionProgressBar);
         final Map<String, Object> values = new HashMap<>();
@@ -40,11 +37,16 @@ public class AddQuestionActivity extends AppCompatActivity {
         addQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (question.getText().toString().isEmpty() || correct.getText().toString().isEmpty() ||
-                        false1.getText().toString().isEmpty() || false2.getText().toString().isEmpty() || false3.getText().toString().isEmpty())
+                for (EditText i : inputs)
                 {
-                    Toast.makeText(getApplicationContext(), "נא למלא את כל השדות!", Toast.LENGTH_SHORT).show();
-                    return;
+                    if (i.getText().toString().isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "נא למלא את כל השדות!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (i.getText().toString().length() > 30) {
+                        Toast.makeText(getApplicationContext(), "אורך השדות צריך להיות עד 30 תווים!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 ref.child("questions").child("number").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -53,11 +55,11 @@ public class AddQuestionActivity extends AppCompatActivity {
                         number[0] = dataSnapshot.getValue(Integer.class);
                         ref.child("questions").child("number").setValue(++number[0]);
                         Map<String, Object> questionMap = new HashMap<>();
-                        questionMap.put("1", correct.getText().toString());
-                        questionMap.put("2", false1.getText().toString());
-                        questionMap.put("3", false2.getText().toString());
-                        questionMap.put("4", false3.getText().toString());
-                        questionMap.put("question", question.getText().toString());
+                        for (int i = 1; i <= 4; i++)
+                        {
+                            questionMap.put(Integer.toString(i), inputs[i-1].getText().toString());
+                        }
+                        questionMap.put("question", inputs[4].getText().toString());
                         values.put(String.valueOf(number[0]), questionMap);
                         ref.child("questions").updateChildren(values);
                         progressBar.setVisibility(View.GONE);
