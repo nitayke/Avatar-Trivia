@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -48,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button resume;
     private Button quit;
-    CountDownTimer timer = getTimer(10000);
+    CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     void game() {
-        timer = getTimer(10000);
+        timer = getTimer(11000);
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
         timer.start();
@@ -183,6 +185,17 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     setColors(finalI);
                     timer.cancel();
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            }
+                            catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                     if (life > 0)
                         game();
                     else
@@ -206,12 +219,13 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    CountDownTimer getTimer(long millisecondsLong)
+    CountDownTimer getTimer(final long millisecondsLong)
     {
         return new CountDownTimer(millisecondsLong, 200) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
+                if (timeProgressBar.getMax() - millisUntilFinished/200 > 0)
+                    timeProgressBar.setProgress((int) (timeProgressBar.getMax() - millisUntilFinished/200));
                 milliseconds[0] = millisUntilFinished;
             }
             @Override

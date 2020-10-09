@@ -23,9 +23,9 @@ public class HomeActivity extends AppCompatActivity {
         if (MainActivity.username == null)
             logoutButton.setVisibility(View.GONE);
 
-            startGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        startGameButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
                 finish();
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
