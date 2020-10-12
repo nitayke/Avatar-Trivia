@@ -76,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     void game() {
+        progressBar.setVisibility(View.VISIBLE);
         timer = getTimer(11000);
         lifes.setText(getString(R.string.lifes, life));
         scoreTxt.setText(getString(R.string.score, score));
@@ -106,7 +107,6 @@ public class GameActivity extends AppCompatActivity {
     void setViews()
     {
         progressBar = findViewById(R.id.gameProgressBar);
-        progressBar.setVisibility(View.VISIBLE);
         scoreTxt = findViewById(R.id.gameScore);
         question = findViewById(R.id.gameQuestion);
         lifes = findViewById(R.id.gameLifes);
