@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/aangbg"
+    tools:context=".ResultActivity">
+
+    <TextView
+        android:id="@+id/resultScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/rubik"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:layout_marginTop="150sp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowRadius="5"
+        android:shadowDy="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/resultBack"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="90dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:fontFamily="@font/rubik"
+        android:text="חזרה למסך הבית"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="200dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/resultGuestName"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:visibility="gone"
+        android:background="@drawable/edittxt"
+        android:fontFamily="@font/rubik"
+        android:hint="הכנס שם"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toTopOf="@+id/resultBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultScore"
+        tools:ignore="RtlSymmetry" />
+
+    <Button
+        android:id="@+id/resultSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="90dp"
+        android:visibility="gone"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/rubik"
+        android:text="שמור שיא"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/resultBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
