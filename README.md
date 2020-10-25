@@ -12,14 +12,6 @@ The app is available in [play store](https://play.google.com/store/apps/details?
 ![](https://github.com/nitayke/TriviaApp/blob/master/screenshots/4.webp?raw=true)
 ![](https://github.com/nitayke/TriviaApp/blob/master/screenshots/5.webp?raw=true)
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-```
-
 ## Features
 - Adding a question
 - Weekly + All-time top 10 scores
